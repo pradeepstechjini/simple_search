@@ -16,6 +16,13 @@
     </head>
     <body>
         <div class="container">
+        	<div class="row">
+        	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    		<a href="/logout">Logout</a>
+    		{% else %}
+    		<a href="/login">Login</a> / <a href="/register">Register</a>
+            {% endif %}
+        	</div>
             <div class="row">
                 <div class="col-md-12">
                     {% block body %}
