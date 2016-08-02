@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<div>
+{{ form_start(filterForm) }}
+    <fieldset>
+        {{ form_widget(filterForm) }}
+    </fieldset>
+{{ form_end(filterForm) }}
+</div>
+<div>
+    <h3>Giveaway list</h3>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+               
+                <th>Name</th>
+                <th>Price</th>
+                <th>Slug</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Deletedat</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.price }}</td>
+                <td>{{ entity.slug }}</td>
+                <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+
