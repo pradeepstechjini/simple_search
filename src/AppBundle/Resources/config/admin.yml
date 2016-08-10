@@ -1,0 +1,22 @@
+services:
+    app.admin.product:
+        class: AppBundle\Admin\ProductAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Give Away" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Giveaway
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
+            
+    app.admin.user:
+        class: AppBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Users" }
+        arguments:
+            - ~
+            - AppBundle\Entity\User
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
