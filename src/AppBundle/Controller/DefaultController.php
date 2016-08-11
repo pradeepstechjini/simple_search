@@ -19,13 +19,10 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
     	$data = array();
-    	$em = $this->getDoctrine()->getEntityManager();
+    	$em = $this->getDoctrine()->getManager();
     	$access = 0;
-    	if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-    		$roles = $this->getUser()->getRoles();
-    		if(in_array ('ROLE_ADMIN', $roles)){
-    			$access = 1;
-    		}
+    	if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		$access = 1;
     	}
         $filterForm = $this->createFormBuilder($data)
                ->add('name', 'text', array('required'=>false))
