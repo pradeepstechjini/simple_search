@@ -65,11 +65,14 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
+        types:
+            json: Sonata\Doctrine\Types\JsonType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+    
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -78,14 +81,33 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+parameters:
+
+    sonata.user.admin.user.entity:             UserBundle\Entity\User
+    sonata.user.admin.user.class:              Sonata\UserBundle\Admin\Entity\UserAdmin
+    sonata.user.admin.user.controller:         SonataAdminBundle:CRUD
+    sonata.user.admin.group.entity:            UserBundle\Entity\Group
+    sonata.user.admin.group.class:             Sonata\UserBundle\Admin\Entity\GroupAdmin
+    sonata.user.admin.group.controller:        SonataAdminBundle:CRUD
+            
     
+    
+        
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: UserBundle\Entity\User
     registration:
         form:
             type: app_user_registration
+    group:
+        group_class:   UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+
+    service:
+        user_manager: sonata.user.orm.user_manager
             
 # sonata admin configuration
 sonata_block:
@@ -98,3 +120,10 @@ sonata_block:
         sonata.block.service.text: # used to if you plan to use Sonata user routes
             contexts: [admin]
         # ...
+        
+sonata_user:
+    security_acl: true
+    manager_type: orm
+    class:
+        user: UserBundle\Entity\User
+        group: UserBundle\Entity\Group

@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 class AppKernel extends Kernel
 {
@@ -27,7 +28,9 @@ class AppKernel extends Kernel
                 // And finally, the storage and SonataAdminBundle
                 new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
                 new Sonata\AdminBundle\SonataAdminBundle(),
-               // new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+                new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+                new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+                new UserBundle\UserBundle(),
         );
         
         if (in_array($this->getEnvironment(), array(
